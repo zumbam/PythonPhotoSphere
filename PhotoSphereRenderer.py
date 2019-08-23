@@ -7,7 +7,7 @@ import copy
 from math import cos, sin
 import numpy
 import PIL.Image as Image
-import urllib, cStringIO
+import urllib, io
 
 from ArcBall import *                 # ArcBallT and this tutorials set of points/vectors/matrix types
 
@@ -15,11 +15,11 @@ PI2 = 2.0*3.1415926535            # 2 * PI (not squared!)         // PI Squared
 
 # *********************** Globals *********************** 
 # Python 2.2 defines these directly
-try:
-    True
-except NameError:
-    True = 1==1
-    False = 1==0
+# try:
+#     True
+# except NameError:
+#     True = 1==1
+#     False = 1==0
 
 g_Transform = Matrix4fT ()
 g_Rotation  = Matrix4fT ()
@@ -75,8 +75,8 @@ def loadImage( imageName = "/local/photo/SR71.jpg" ): # "/local/photo/montagna.j
 
 
 
-    file = cStringIO.StringIO(urllib.urlopen(imageName).read())
-    im = Image.open(file)
+    # file = io.StringIO(urllib.urlopen(imageName).read())
+    im = Image.open(imageName)
     #im = Image.open(imageName)
 #    try:
 #        g_texWidth, g_texHeight, g_texData = im.size[0], im.size[1], im.tostring("raw", "RGBA", 0, -1)
@@ -123,6 +123,7 @@ def Initialize (Width, Height, fileUrl):                # We call this right aft
     
     #loadImage("file:///local/www/web/wci/uppete/ups/PANO_20130727_160023403796945.jpg")
     #loadImage("http://bonas.us/uppete/ups/PANO_20130727_160023403796945.jpg")
+
     loadImage(fileUrl)
 
 
@@ -248,8 +249,8 @@ def Upon_Click (button, button_state, cursor_x, cursor_y):
 def Torus(MinorRadius, MajorRadius):        
     # // Draw A Torus With Normals
     glBegin( GL_TRIANGLE_STRIP );                                    # // Start A Triangle Strip
-    for i in xrange (20):                                             # // Stacks
-        for j in xrange (-1, 20):                                         # // Slices
+    for i in range (20):                                             # // Stacks
+        for j in range (-1, 20):                                         # // Slices
             # NOTE, python's definition of modulus for negative numbers returns
             # results different than C's
             #       (a / d)*d  +  a % d = a

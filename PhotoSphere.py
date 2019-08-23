@@ -25,15 +25,15 @@ import sys
 
 from PhotoSphereRenderer import *        # Draw (), Initialize () and all the real OpenGL work.
 from ArcBall import *        # // *NEW* ArcBall header
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 
 # *********************** Globals *********************** 
 # Python 2.2 defines these directly
-try:
-    True
-except NameError:
-    True = 1==1
-    False = 1==0
+# try:
+#     True
+# except NameError:
+#     True = 1==1
+#     False = 1==0
 
 
 # Some api in the chain is translating the keystrokes to this octal string
@@ -44,7 +44,7 @@ ESCAPE = '\033'
 window = 0
 
 
-fileUrl = ""
+fileUrl = 'C:/Users/stefa/PycharmProjects/for_manu/36test_image.jpg'
 
 
 # Reshape The Window When It's Moved Or Resized
@@ -80,6 +80,7 @@ def keyPressed(*args):
 def main():
     global window
     # pass arguments to init
+    print(sys.argv)
     glutInit(sys.argv)
 
     # Select type of Display mode:   
@@ -144,8 +145,7 @@ def main():
 
 
 
-
-class Example(QtGui.QWidget):
+class Example(QtWidgets.QWidget):
     
     def __init__(self):
         super(Example, self).__init__()
@@ -154,14 +154,14 @@ class Example(QtGui.QWidget):
         
     def initUI(self):      
 
-        self.btn = QtGui.QPushButton('OK', self)
+        self.btn = QtWidgets.QPushButton('OK', self)
         self.btn.move(20, 20)
         self.btn.clicked.connect(self.showDialog)
         
-        self.le = QtGui.QLineEdit(self)
+        self.le = QtWidgets.QLineEdit(self)
         self.le.move(130, 22)
         
-        self.fdBtn = QtGui.QPushButton('Choose', self)
+        self.fdBtn = QtWidgets.QPushButton('Choose', self)
         self.fdBtn.move(280, 20)
         self.fdBtn.clicked.connect(self.chooseFile)
         
@@ -170,7 +170,7 @@ class Example(QtGui.QWidget):
         self.show()
         
     def chooseFile(self):
-        sFileName =  QtGui.QFileDialog.getOpenFileName(self, "Open File", "","Files (*.*)" )
+        sFileName =  QtWidgets.QFileDialog.getOpenFileName(self, "Open File", "","Files (*.*)" )
         self.le.setText("file:///"+sFileName)
         self.showDialog()
         
@@ -183,38 +183,23 @@ class Example(QtGui.QWidget):
         
 def qtmain():
     
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex = Example()
     ret = app.exec_()
+    print(ret)
     return ret
 
 
 
 
-if __name__ == '__main__':
-    ret = qtmain()
-    # Your code that must run when the application closes goes here
-    main()
-    sys.exit(ret)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# if __name__ == '__main__':
+#     ret = qtmain()
+#     # Your code that must run when the application closes goes here
+#     main()
+#     sys.exit(ret)
 
 
 if __name__ == "__main__":
-    print "Hit ESC key to quit."
+    print ("Hit ESC key to quit.")
     main()
 
